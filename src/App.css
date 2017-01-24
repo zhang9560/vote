@@ -18,7 +18,7 @@ form div {
   display: table-row;
 }
 
-form label, form input[type="radio"] {
+form label, form input[type="radio"], form input[type="text"] {
   display: table-cell;
   margin-bottom: 10px;
 }
@@ -26,6 +26,11 @@ form label, form input[type="radio"] {
 form label {
   padding-left: 5px;
   text-align: left;
+}
+
+form label.Vote-item-label {
+  text-align: right;
+  padding-right: 10px;
 }
 
 form div.Items-title {
