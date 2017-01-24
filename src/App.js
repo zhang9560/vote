@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import uuid from 'uuid';
 import { BarChart } from 'react-d3-components';
 import Constants from './Constants';
+import Utils from './Utils';
 
 class App extends Component {
   constructor() {
@@ -10,11 +10,13 @@ class App extends Component {
 
     this.state = {
       dataGot: false,
+      submitted: false
     };
     this.data = {};
     this.id = {};
 
-    this.getVote('b757a5f0-f099-42b6-8d26-e5c59291c6bb');
+    document.title = '投票';
+    this.getVote(Utils.getQueryString(window.location.search, 'id'));
   }
 
   getVote(voteId) {
@@ -26,11 +28,11 @@ class App extends Component {
         if (respObj.result === 0 && respObj.data !== undefined) {
           this.data = respObj.data;
           this.id = respObj.id;
-          this.setState({dataGot: true});
+          this.setState({dataGot: true, submitted: respObj.submitted});
         }
       }
     });
-    xhr.open('GET', 'http://' + Constants.HOST() + '/get_vote?id=' + voteId, true);
+    xhr.open('GET', 'http://' + Constants.HOST() + '/get_vote?id=' + voteId + "&uid=" + Utils.getQueryString(window.location.search, 'uid'), true);
     xhr.send();
   }
 
@@ -46,7 +48,7 @@ class App extends Component {
             let VoteItemList = React.createClass({
 
               getInitialState: function() {
-                this.uid = uuid.v4();
+                this.uid = Utils.getQueryString(window.location.search, 'uid');
                 return {
                   chosen: false,
                   submitted: false,
@@ -107,8 +109,8 @@ class App extends Component {
                     <form className='Items'>
                       {items}
                       <div className='Items-title'>
-                        <input type='button' value='提交' disabled={!this.state.chosen || this.state.submitted} onClick={() => this._submit()} />
-                        <input type='button' value='查看结果' disabled={!this.state.submitted} onClick={() => this._showResult()} />
+                        <input type='button' value='提交' disabled={!this.state.chosen || this.state.submitted || this.props.submitted} onClick={() => this._submit()} />
+                        <input type='button' value='查看结果' disabled={!this.state.submitted && !this.props.submitted} onClick={() => this._showResult()} />
                       </div>
                     </form>
 
@@ -124,7 +126,7 @@ class App extends Component {
                   }
             });
 
-            return (<VoteItemList items={this.data.items} id={this.id} />);
+            return (<VoteItemList items={this.data.items} id={this.id} submitted={this.state.submitted} />);
           }
         })()}
       </div>

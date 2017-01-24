@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 import Constants from './Constants';
+import Utils from './Utils';
 
 class VoteCreation extends Component {
   constructor() {
     super();
     document.title = '创建投票'
+    console.log("search = " + window.location.search);
+    console.log(window.location.href);
+    this.target = Utils.getQueryString(window.location.search, 'target');
   }
 
-  submit() {
+  _submit() {
     let voteTitle = document.getElementsByClassName('Vote-title')[0].value;
     if (voteTitle === '') {
       alert('请填写标题');
@@ -34,7 +38,13 @@ class VoteCreation extends Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener("readystatechange", () => {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        alert(xhr.responseText);
+        console.log(xhr.responseText);
+        let respObj = JSON.parse(xhr.responseText);
+        if (window.cordova !== undefined) {
+          window.cordova.exec((result) => {
+            window.cordova.exec(null, null, 'StartActivity', 'finish', []);
+          }, null, 'MessagingService', 'sendMessage', [28, this.target, voteObj.title, respObj.id]);
+        }
       }
     });
     xhr.open('POST', 'http://' + Constants.HOST() + '/create_vote', true);
@@ -74,7 +84,7 @@ class VoteCreation extends Component {
             <input type='text' className='Vote-item' name='item5' />
           </div>
           <div className='Items-title'>
-            <input type='button' value='创建' onClick={() => this.submit()} />
+            <input type='button' value='创建' onClick={() => this._submit()} />
           </div>
         </form>
       </div>

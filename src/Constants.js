@@ -1,6 +1,6 @@
 class Constants {
     static HOST() {
-        return 'localhost:8080';
+        return '192.168.1.101:8080';
     }
 }
 
