@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import uuid from 'uuid';
 import { BarChart } from 'react-d3-components';
+import Constants from './Constants';
 
 class App extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class App extends Component {
     this.data = {};
     this.id = {};
 
-    this.getVote('0ad02db4-5ac6-442f-baf9-e41ec087e59f');
+    this.getVote('b757a5f0-f099-42b6-8d26-e5c59291c6bb');
   }
 
   getVote(voteId) {
@@ -29,7 +30,7 @@ class App extends Component {
         }
       }
     });
-    xhr.open('GET', 'http://localhost:8080/get_vote?id=' + voteId, true);
+    xhr.open('GET', 'http://' + Constants.HOST() + '/get_vote?id=' + voteId, true);
     xhr.send();
   }
 
@@ -68,7 +69,7 @@ class App extends Component {
                       alert('submitted');
                     }
                   });
-                  xhr.open('POST', 'http://localhost:8080/vote', true);
+                  xhr.open('POST', 'http://' + Constants.HOST() + '/vote', true);
                   xhr.setRequestHeader('Content-Type', 'application/json');
                   xhr.send(JSON.stringify({uid: this.uid, item: this.item, id: this.props.id}));
                 }
@@ -88,7 +89,7 @@ class App extends Component {
                     this.setState({showResult: true});
                   }
                 });
-                xhr.open('GET', 'http://localhost:8080/result?id=' + this.props.id, true);
+                xhr.open('GET', 'http://' + Constants.HOST() + '/result?id=' + this.props.id, true);
                 xhr.send();
               },
 
@@ -112,12 +113,12 @@ class App extends Component {
                     </form>
 
                     {(() => {
-                        if (this.state.showResult) {
-                          return (
-                            <BarChart className='Chart' width={window.screen.width * 0.8} height={window.screen.height * 0.5} data={this.voteResult} margin={{top: 30, bottom: 30, left: 50, right: 10}} />
-                          );
-                        }})()
-                      }
+                      if (this.state.showResult) {
+                        return (
+                          <BarChart className='Chart' width={window.screen.width * 0.8} height={window.screen.height * 0.5} data={this.voteResult} margin={{top: 30, bottom: 30, left: 50, right: 10}} />
+                        );
+                      }})()
+                    }
                   </div>
                     );
                   }
