@@ -1,6 +1,6 @@
 class Constants {
-    static HOST() {
-        return 'localhost:8080';
+    static get host() {
+        return 'http://vote-service.herokuapp.com';
     }
 }
 

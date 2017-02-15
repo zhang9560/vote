@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
 import Constants from './Constants';
 import Utils from './Utils';
+
+import './Common.css';
+import './VoteCreation.css';
 
 class VoteCreation extends Component {
   constructor() {
@@ -54,7 +56,7 @@ class VoteCreation extends Component {
         }
       }
     });
-    xhr.open('POST', 'http://' + Constants.HOST() + '/create_vote', true);
+    xhr.open('POST', Constants.host + '/create_vote', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(voteObj));
   }

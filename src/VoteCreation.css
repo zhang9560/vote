@@ -1,0 +1,72 @@
+form div {
+  width: 0 auto;
+  background-color: #ffffff;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-style: solid none solid none;
+  border-width: 1px;
+  border-color: #e3e3e3;
+}
+
+div.Vote-items-container {
+  width: 0 auto;
+  margin-top: 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+div.Vote-item {
+  width: 0 auto;
+  border-width: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0;
+}
+
+div.Description {
+  background-color: transparent;
+  border-style: none;
+  font-size: 0.8rem;
+  color: #b2b2b2;
+  text-align: left;
+}
+
+div.Button {
+  width: 0 auto;
+  text-align: center;
+  color: white;
+  background-color: #1aad19;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-style: none;
+}
+
+div.Button:active {
+  background-color: #159214;
+}
+
+input[type="text"] {
+  width: auto;
+  border-style: none none solid none;
+  border-color: #e3e3e3;
+  border-width: 1px;
+  flex-grow: 1;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+textarea {
+  width: 100%;
+  border: 0;
+  line-height: 150%;
+  font-size: 1rem;
+  outline: none;
+}
