@@ -6,16 +6,19 @@ import Utils from './Utils';
 class VoteCreation extends Component {
   constructor() {
     super();
-    document.title = '创建投票'
+    document.title = '发布投票'
     console.log("search = " + window.location.search);
-    console.log(window.location.href);
     this.target = Utils.getQueryString(window.location.search, 'target');
   }
 
   _submit() {
     let voteTitle = document.getElementsByClassName('Vote-title')[0].value;
     if (voteTitle === '') {
-      alert('请填写标题');
+      if (window.cordova !== undefined) {
+        window.cordova.exec(null, null, 'MessagingService', 'showToast', ['请填写标题', 0]);
+      } else {
+        alert('请填写标题');
+      }
       return;
     }
 
@@ -24,14 +27,18 @@ class VoteCreation extends Component {
     voteObj.items = [];
 
     let idx = 0;
-    let voteItems = document.getElementsByClassName('Vote-item');
+    let voteItems = document.getElementsByClassName('Vote-item-text');
     for (let i = 0; i < voteItems.length; i++) {
       if (voteItems[i].value !== '') {
         voteObj.items[idx++] = {key: voteItems[i].name, value: voteItems[i].value};
       }
     }
     if (voteObj.items.length < 2) {
-      alert('请填写两个或以上选项');
+      if (window.cordova !== undefined) {
+        window.cordova.exec(null, null, 'MessagingService', 'showToast', ['请填写两个或以上选项', 0]);
+      } else {
+        alert('请填写两个或以上选项');
+      }
       return;
     }
 
@@ -55,37 +62,32 @@ class VoteCreation extends Component {
   render() {
     return (
       <div className='App'>
-        <div className='App-header'>
-          <h2>创建投票</h2>
-        </div>
         <form className='Items'>
           <div>
-            <label className='Vote-item-label'>标题: </label>
-            <input type='text' className='Vote-title' />
+            <textarea maxLength='80' rows='3' placeholder='输入投票主题，2-80字' className='Vote-title'></textarea>
           </div>
-          <div>
-            <label className='Vote-item-label'>选项1: </label>
-            <input type='text' className='Vote-item' name='item1' />
+
+          <div className='Vote-items-container'>
+            <div className='Vote-item'>
+              <input type='text' className='Vote-item-text' name='item1' placeholder='选项1' maxLength='40' />
+            </div>
+            <div className='Vote-item'>
+              <input type='text' className='Vote-item-text' name='item2' placeholder='选项2' maxLength='40' />
+            </div>
+            <div className='Vote-item'>
+              <input type='text' className='Vote-item-text' name='item3' placeholder='选项3' maxLength='40' />
+            </div>
+            <div className='Vote-item'>
+              <input type='text' className='Vote-item-text' name='item4' placeholder='选项4' maxLength='40' />
+            </div>
+            <div className='Vote-item'>
+              <input type='text' className='Vote-item-text' name='item5' placeholder='选项5' maxLength='40' />
+            </div>
           </div>
-          <div>
-            <label className='Vote-item-label'>选项2: </label>
-            <input type='text' className='Vote-item' name='item2' />
-          </div>
-          <div>
-            <label className='Vote-item-label'>选项3: </label>
-            <input type='text' className='Vote-item' name='item3' />
-          </div>
-          <div>
-            <label className='Vote-item-label'>选项4: </label>
-            <input type='text' className='Vote-item' name='item4' />
-          </div>
-          <div>
-            <label className='Vote-item-label'>选项5: </label>
-            <input type='text' className='Vote-item' name='item5' />
-          </div>
-          <div className='Items-title'>
-            <input type='button' value='创建' onClick={() => this._submit()} />
-          </div>
+
+          <div className='Description'>最多支持5个选项，每个选项不能超过40个字</div>
+
+          <div className='Button' onClick={this._submit}>发布</div>
         </form>
       </div>
     );
