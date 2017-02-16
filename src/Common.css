@@ -7,18 +7,25 @@
   margin: 0 auto;
 }
 
-div.Button {
-  width: 0 auto;
+button {
+  width: 80%;
+  font-size: 1rem;
   text-align: center;
   color: white;
   background-color: #1aad19;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   border-style: none;
+  border-radius: 5px;
 }
 
-div.Button:active {
+button:active {
   background-color: #159214;
+}
+
+button:disabled {
+  color: #1aad19;
+  background-color: #f0f0f0;
+  border-style: solid solid solid solid;
+  border-width: 1px;
 }

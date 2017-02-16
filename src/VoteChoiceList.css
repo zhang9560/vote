@@ -1,0 +1,24 @@
+div.Vote-choices-container {
+  width: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+label.Vote-choice-item {
+  width: 0 auto;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-left: 0;
+  margin-bottom: 1px;
+  background-color: #fbfbfb;
+  color: #808080;
+}
+
+label.Vote-choice-item:active {
+  background-color: #dbdbdb;
+}
+
+input[type='radio'] {
+  margin-right: 1rem;
+}

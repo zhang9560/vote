@@ -89,7 +89,7 @@ class VoteCreation extends Component {
 
           <div className='Description'>最多支持5个选项，每个选项不能超过40个字</div>
 
-          <div className='Button' onClick={this._submit}>发布</div>
+          <button type='button' onClick={() => {this._submit()}}>发布</button>
         </form>
       </div>
     );
