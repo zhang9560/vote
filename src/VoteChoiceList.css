@@ -7,12 +7,16 @@ div.Vote-choices-container {
 label.Vote-choice-item {
   width: 0 auto;
   padding-left: 1rem;
+  padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   margin-left: 0;
   margin-bottom: 1px;
   background-color: #fbfbfb;
   color: #808080;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 label.Vote-choice-item:active {
